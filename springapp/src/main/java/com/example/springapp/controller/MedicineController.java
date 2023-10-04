@@ -1,6 +1,6 @@
-package com.MedicineApp.Medicine.Application.Controller;
+package com.example.springapp.controller;
 
-import com.MedicineApp.Medicine.Application.MedService.MedService;
+import com.example.springapp.MedService.MedService;
 import com.MedicineApp.Medicine.Application.Model.Medicine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,21 +12,20 @@ import java.util.List;
 @RequestMapping
 public class MedicineController {
     @Autowired
-        MedService medService;
-            @PostMapping("/medicines")
-                public ResponseEntity<Boolean> addMedicine(@RequestBody Medicine medicine) {
-                        boolean result = medService.addMedicine(medicine);
-                                return ResponseEntity.ok(result);
-                                    }
+    MedService medService;
+    @PostMapping("/medicines")
+    public ResponseEntity<Boolean> addMedicine(@RequestBody Medicine medicine) {
+        boolean result = medService.addMedicine(medicine);
+        return ResponseEntity.ok(result);
+    }
 
-                                        @PutMapping("/{medicineId}")
-                                            public ResponseEntity<Medicine> updateMedicine(@PathVariable int medicineId, @RequestBody Medicine updatedMedicine) {
-                                                    Medicine updated = medService.updateMedicine(medicineId, updatedMedicine);
-                                                            if (updated != null) {
-                                                                        return ResponseEntity.ok(updated);
-                                                                                } else {
-                                                                                            return ResponseEntity.notFound().build();
-                                                                                                    }
-                                                                                                        }
-                                                                                                        }
-                                                                                                        
+    @PutMapping("/medicines/{medicineId}")
+    public ResponseEntity<Medicine> updateMedicine(@PathVariable int medicineId, @RequestBody Medicine updatedMedicine) {
+    Medicine updated = medService.updateMedicine(medicineId, updatedMedicine);
+    if (updated != null) {
+        return ResponseEntity.ok(updated);
+    } else {
+        return ResponseEntity.notFound().build();
+        }
+    }
+}
