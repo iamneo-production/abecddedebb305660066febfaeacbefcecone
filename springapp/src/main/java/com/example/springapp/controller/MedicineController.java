@@ -1,31 +1,32 @@
 package com.example.springapp.controller;
 
-import com.example.springapp.MedService.MedService;
-import com.MedicineApp.Medicine.Application.Model.Medicine;
+import com.example.springapp.Service.MedicineService;
+import com.example.springapp.model.Medicine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping
 public class MedicineController {
     @Autowired
-    MedService medService;
+    MedicineService medicineService;
+
     @PostMapping("/medicines")
+
     public ResponseEntity<Boolean> addMedicine(@RequestBody Medicine medicine) {
-        boolean result = medService.addMedicine(medicine);
+        boolean result = medicineService.addMedicine(medicine);
         return ResponseEntity.ok(result);
     }
 
-    @PutMapping("/medicines/{medicineId}")
-    public ResponseEntity<Medicine> updateMedicine(@PathVariable int medicineId, @RequestBody Medicine updatedMedicine) {
-    Medicine updated = medService.updateMedicine(medicineId, updatedMedicine);
-    if (updated != null) {
-        return ResponseEntity.ok(updated);
-    } else {
-        return ResponseEntity.notFound().build();
+    @PutMapping("/{medicineId}")
+    public ResponseEntity<Medicine> updateMedicine(@PathVariable int medicineId,
+            @RequestBody Medicine updatedMedicine) {
+        Medicine updated = medicineService.updateMedicine(medicineId, updatedMedicine);
+        if (updated != null) {
+            return ResponseEntity.ok(updated);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 }
