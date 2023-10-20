@@ -1,66 +1,29 @@
-package com.example.springapp.model;
+package com.example.springapp.controller;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Entity
-public class Medicine {
-    @Id
-    int medicineId;
-    String medicineName;
-    float price;
-    int quantity;
-    String description;
+import com.example.springapp.model.Medicine;
+import com.example.springapp.service.MedicineService;
 
-    public Medicine() {
-    };
+@RestController
+public class MedicineController {
 
-    public Medicine(int medicineId, String medicineName, float price, int quantity, String description) {
-        this.medicineId = medicineId;
-        this.medicineName = medicineName;
-        this.price = price;
-        this.quantity = quantity;
-        this.description = description;
+    @Autowired
+    private MedicineService medicineService;
+
+    @PostMapping
+    public boolean addMedicine(@RequestBody Medicine medicine) {
+        return medicineService.addMedicine(medicine);
     }
 
-    public int getMedicineId() {
-        return medicineId;
-    }
-
-    public void setMedicineId(int medicineId) {
-        this.medicineId = medicineId;
-    }
-
-    public String getMedicineName() {
-        return medicineName;
-    }
-
-    public void setMedicineName(String medicineName) {
-        this.medicineName = medicineName;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    @PutMapping("/{medicineId}")
+    public Medicine updateMedicine(@PathVariable int medicineId, @RequestBody Medicine medicine) {
+        return medicineService.updateMedicine(medicineId, medicine);
     }
 
 }

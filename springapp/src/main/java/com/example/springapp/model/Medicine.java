@@ -1,29 +1,34 @@
 package com.example.springapp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Medicine {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer medicineId;
-    private String medicineName;
-    private float price;
-    private Integer quantity;
-    private String description;
+    int medicineId;
+    String medicineName;
+    float price;
+    int quantity;
+    String description;
 
     public Medicine() {
-    }
+    };
 
-    public Medicine(Integer medicineId, String medicineName, float price, Integer quantity, String description) {
+    public Medicine(int medicineId, String medicineName, float price, int quantity, String description) {
         this.medicineId = medicineId;
         this.medicineName = medicineName;
         this.price = price;
         this.quantity = quantity;
         this.description = description;
+    }
+
+    public int getMedicineId() {
+        return medicineId;
+    }
+
+    public void setMedicineId(int medicineId) {
+        this.medicineId = medicineId;
     }
 
     public String getMedicineName() {
@@ -42,11 +47,11 @@ public class Medicine {
         this.price = price;
     }
 
-    public Integer getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
@@ -57,4 +62,5 @@ public class Medicine {
     public void setDescription(String description) {
         this.description = description;
     }
+
 }
